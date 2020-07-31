@@ -1,0 +1,4 @@
+LIBRARY "AIMPEase"
+
+EXPORTS
+	AIMPPluginGetHeader
