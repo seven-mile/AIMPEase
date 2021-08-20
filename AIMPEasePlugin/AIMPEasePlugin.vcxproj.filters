@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="components">
+      <UniqueIdentifier>{223a90e1-c9aa-4fb5-b355-bff99dc3edca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{70414879-7435-45f8-9981-a10cbbcbcdc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plugin_core">
+      <UniqueIdentifier>{79d365a2-96d6-473a-805d-61c4f5e87026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components\providers">
+      <UniqueIdentifier>{0435aca3-ae6c-4709-97b3-52e1124ed4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{83254a67-868f-46e0-839a-299e3ef64f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\util">
+      <UniqueIdentifier>{42880d6d-5697-40b5-ba7d-6c7243370727}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="plugin.h">
+      <Filter>plugin_core</Filter>
+    </ClInclude>
+    <ClInclude Include="lyrics.h">
+      <Filter>components\providers</Filter>
+    </ClInclude>
+    <ClInclude Include="aimpstring.h">
+      <Filter>libraries\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="plugin.cpp">
+      <Filter>plugin_core</Filter>
+    </ClCompile>
+    <ClCompile Include="lyrics.cpp">
+      <Filter>components\providers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="plugin.def">
+      <Filter>plugin_core</Filter>
+    </None>
+  </ItemGroup>
+</Project>
