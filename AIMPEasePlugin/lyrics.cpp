@@ -14,7 +14,10 @@ namespace winrt {
 
 winrt::hresult AIMPEase::Plugin::LyricsProvider::get_api_host(winrt::hstring& apihost)
 {
+	apihost = L"___FAILED__";
+
 	auto cfg = m_core.as<IAIMPServiceConfig>();
+	if (cfg == nullptr) return E_INVALIDARG;
 	winrt::com_ptr<IAIMPString> raw_apihost;
 	RETURN_IF_FAILED(cfg->GetValueAsString(HstrToAstr(m_core, L"AIMPEase\\ApiHost").get(), raw_apihost.put()));
 
@@ -24,11 +27,10 @@ winrt::hresult AIMPEase::Plugin::LyricsProvider::get_api_host(winrt::hstring& ap
 }
 
 AIMPEase::Plugin::LyricsProvider::LyricsProvider(winrt::com_ptr<IAIMPCore> core) : m_core(core) {
-	if (FAILED(get_api_host(m_apihost)))
-		m_apihost = L"__FAILED__";
+	LOG_IF_FAILED(get_api_host(m_apihost));
 }
 
-HRESULT __stdcall AIMPEase::Plugin::LyricsProvider::Get(IAIMPTaskOwner* Owner, IAIMPFileInfo* FileInfo, DWORD Flags, IAIMPLyrics* Lyrics)
+HRESULT WINAPI AIMPEase::Plugin::LyricsProvider::Get(IAIMPTaskOwner* Owner, IAIMPFileInfo* FileInfo, DWORD Flags, IAIMPLyrics* Lyrics)
 {
 	if (m_apihost == L"__FAILED__")
 		return HRESULT_FROM_WIN32(ERROR_API_UNAVAILABLE);
@@ -85,7 +87,7 @@ HRESULT __stdcall AIMPEase::Plugin::LyricsProvider::Get(IAIMPTaskOwner* Owner, I
 	return S_OK;
 }
 
-DWORD __stdcall AIMPEase::Plugin::LyricsProvider::GetCategory()
+DWORD WINAPI AIMPEase::Plugin::LyricsProvider::GetCategory()
 {
 	return AIMP_LYRICS_PROVIDER_CATEGORY_INTERNET;
 }

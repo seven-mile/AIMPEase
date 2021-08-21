@@ -159,12 +159,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="aimpstring.h" />
+    <ClInclude Include="albumart.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="lyrics.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="plugin.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="albumart.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="lyrics.cpp" />
     <ClCompile Include="pch.cpp">

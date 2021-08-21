@@ -36,6 +36,9 @@
     <ClInclude Include="aimpstring.h">
       <Filter>libraries\util</Filter>
     </ClInclude>
+    <ClInclude Include="albumart.h">
+      <Filter>components\providers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -48,6 +51,9 @@
       <Filter>plugin_core</Filter>
     </ClCompile>
     <ClCompile Include="lyrics.cpp">
+      <Filter>components\providers</Filter>
+    </ClCompile>
+    <ClCompile Include="albumart.cpp">
       <Filter>components\providers</Filter>
     </ClCompile>
   </ItemGroup>
