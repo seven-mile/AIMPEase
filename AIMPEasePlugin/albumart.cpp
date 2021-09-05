@@ -83,23 +83,23 @@ try {
     
     if (dl_op.Status() != winrt::AsyncStatus::Completed)
         return dl_op.Status() == winrt::AsyncStatus::Canceled ? E_ABORT : dl_op.ErrorCode().value;
-        winrt::IBuffer buffer = dl_op.GetResults();
+    winrt::IBuffer buffer = dl_op.GetResults();
 
-        winrt::com_ptr<IAIMPImageContainer> res_cont;
-        RETURN_IF_FAILED(m_core->CreateObject(IID_IAIMPImageContainer, res_cont.put_void()));
-        RETURN_IF_FAILED(res_cont->SetDataSize(buffer.Length()));
+    winrt::com_ptr<IAIMPImageContainer> res_cont;
+    RETURN_IF_FAILED(m_core->CreateObject(IID_IAIMPImageContainer, res_cont.put_void()));
+    RETURN_IF_FAILED(res_cont->SetDataSize(buffer.Length()));
 
-        std::copy(buffer.data(), buffer.data() + buffer.Length(), res_cont->GetData());
-        { // check data
-            static const wchar_t* fmt_conv[5] { L"unknown", L"bmp", L"gif", L"jpg", L"png" };
+    std::copy(buffer.data(), buffer.data() + buffer.Length(), res_cont->GetData());
+    { // check data
+        static const wchar_t* fmt_conv[5] { L"unknown", L"bmp", L"gif", L"jpg", L"png" };
 
-            SIZE sz; int fmt;
-            RETURN_IF_FAILED(res_cont->GetInfo(&sz, &fmt));
-            OutputDebugString(std::format(L"image size {}x{}, format: {}\n", sz.cx, sz.cy, fmt_conv[fmt]).c_str());
-        }
+        SIZE sz; int fmt;
+        RETURN_IF_FAILED(res_cont->GetInfo(&sz, &fmt));
+        OutputDebugString(std::format(L"image size {}x{}, format: {}\n", sz.cx, sz.cy, fmt_conv[fmt]).c_str());
+    }
     
-        *Image = res_cont.get();
-        res_cont->AddRef();
+    *Image = res_cont.get();
+    res_cont->AddRef();
 
 } catch (const winrt::hresult_error &e) {
     return e.code();
