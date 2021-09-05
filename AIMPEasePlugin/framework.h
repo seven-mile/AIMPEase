@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 
 // WIL & cpp/winrt
@@ -9,7 +10,7 @@
 #include <winrt/Windows.Foundation.Collections.h>
 
 namespace winrt {
-	using namespace Windows::Foundation;
+    using namespace Windows::Foundation;
 }
 
 // AIMP SDK

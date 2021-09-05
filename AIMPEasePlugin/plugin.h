@@ -4,15 +4,15 @@
 
 namespace AIMPEase::Plugin {
 
-	class Plugin : public winrt::implements<Plugin, IAIMPPlugin> {
-		winrt::com_ptr<IAIMPCore> m_core;
+    class Plugin : public winrt::implements<Plugin, IAIMPPlugin> {
+        winrt::com_ptr<IAIMPCore> m_core;
 
-	public:
+    public:
         ~Plugin() {
             Finalize();
         }
 
-		PWCHAR WINAPI InfoGet(int Index) override;
+        PWCHAR WINAPI InfoGet(int Index) override;
 
         DWORD WINAPI InfoGetCategories() override;
 
@@ -20,6 +20,6 @@ namespace AIMPEase::Plugin {
         HRESULT WINAPI Finalize() override;
 
         void WINAPI SystemNotification(int NotifyID, IUnknown* Data) override;
-	};
+    };
 
 }
