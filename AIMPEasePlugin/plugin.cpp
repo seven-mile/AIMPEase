@@ -3,14 +3,15 @@
 #include "plugin.h"
 
 #include "lyrics.h"
+#include "albumart.h"
 
 extern "C" HRESULT __declspec(dllexport) WINAPI AIMPPluginGetHeader(IAIMPPlugin** Header) {
-	auto plug = winrt::make<AIMPEase::Plugin::Plugin>();
+    auto plug = winrt::make<AIMPEase::Plugin::Plugin>();
 
     *Header = plug.get();
     plug->AddRef();
 
-	return S_OK;
+    return S_OK;
 }
 
 PWCHAR __stdcall AIMPEase::Plugin::Plugin::InfoGet(int Index)
@@ -37,12 +38,12 @@ DWORD __stdcall AIMPEase::Plugin::Plugin::InfoGetCategories()
 HRESULT __stdcall AIMPEase::Plugin::Plugin::Initialize(IAIMPCore* Core)
 {
     if (!Core) return E_INVALIDARG;
-	m_core.attach(Core);
+    m_core.attach(Core);
 
 
     // config private fields
     const std::vector<std::pair<const wchar_t*, const wchar_t*>> kvs {
-        { L"AIMPEase\\ApiHost", L"http://localhost:8777" }
+        { L"AIMPEase\\ApiHost", L"http://localhost:612" }
 
     };
 
@@ -63,12 +64,21 @@ HRESULT __stdcall AIMPEase::Plugin::Plugin::Initialize(IAIMPCore* Core)
         return E_NOINTERFACE;
     }
 
-    
+
+    { // test provider
+        auto prov = winrt::make<AlbumArtProvider>(m_core);
+        auto ptr1 = prov.try_as<IAIMPExtensionAlbumArtProvider>();
+        auto ptr2 = prov.try_as<IAIMPExtensionAlbumArtProvider2>();
+
+        OutputDebugString(std::format(L"ptr1 = {}; ptr2 = {}\n",
+            reinterpret_cast<void*>(ptr1.get()), reinterpret_cast<void*>(ptr2.get())).c_str());
+    }
+
 
     // registering extension list
-    const std::vector<std::pair<const IID&, winrt::com_ptr<IUnknown>>> exts {
+    std::vector<std::pair<const IID&, winrt::com_ptr<IUnknown>>> exts {
         { IID_IAIMPServiceLyrics, winrt::make<LyricsProvider>(m_core) },
-
+        { IID_IAIMPServiceAlbumArt, winrt::make<AlbumArtProvider>(m_core) },
     };
 
 
@@ -78,7 +88,7 @@ HRESULT __stdcall AIMPEase::Plugin::Plugin::Initialize(IAIMPCore* Core)
         ext.second->Release();
     }
 
-	return S_OK;
+    return S_OK;
 }
 
 HRESULT __stdcall AIMPEase::Plugin::Plugin::Finalize()
