@@ -39,6 +39,9 @@
     <ClInclude Include="albumart.h">
       <Filter>components\providers</Filter>
     </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>libraries\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
